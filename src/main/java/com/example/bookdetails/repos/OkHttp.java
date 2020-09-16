@@ -1,21 +1,21 @@
-package com.example.bookdetails.util;
+package com.example.bookdetails.repos;
 
 import com.example.bookdetails.util.constants.ParamKey;
 import okhttp3.*;
 
 import java.io.IOException;
 
-public class OkHttpUtils {
+public class OkHttp {
     public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
-    private static OkHttpUtils instance = null;
+    private static OkHttp instance = null;
     private static final String URL = "http://10.0.65.25/api/v1";
 
-    private OkHttpUtils() {
+    private OkHttp() {
     }
 
-    public static OkHttpUtils getInstance() {
+    public static OkHttp getInstance() {
         if (instance == null) {
-            instance = new OkHttpUtils();
+            instance = new OkHttp();
         }
         return instance;
     }
@@ -24,8 +24,6 @@ public class OkHttpUtils {
 
     public Response postController(String url, String json, String token) throws IOException {
         RequestBody body = RequestBody.create(JSON, json);
-        url = URL+url;
-
         Request request;
         if (token != null) {
             request = new Request.Builder()
@@ -45,7 +43,6 @@ public class OkHttpUtils {
     }
 
     public Response getController(String url, String token) throws IOException {
-        url = URL + url;
         Request request = new Request.Builder()
                 .addHeader(ParamKey.TOKEN, token)
                 .url(url)
@@ -57,7 +54,6 @@ public class OkHttpUtils {
     }
 
     public Response putController(String url, String json, String token) throws IOException {
-        url = URL + url;
         RequestBody requestBody = RequestBody.create(JSON, json);
         Request request = new Request.Builder()
                 .addHeader(ParamKey.TOKEN, token)
@@ -70,7 +66,6 @@ public class OkHttpUtils {
     }
 
     public Response deleteController(String url, String token) throws IOException {
-        url = URL+url;
         Request request = new Request.Builder()
                 .addHeader(ParamKey.TOKEN, token)
                 .url(url)
@@ -79,5 +74,17 @@ public class OkHttpUtils {
         try (Response response = client.newCall(request).execute()) {
             return response;
         }
+    }
+
+    public String createUrlByApi(String api) {
+        return URL+api;
+    }
+
+    public String createUrlByPathVariable(String... pathVariable) {
+        return null;
+    }
+
+    public String createUrlByRequestParam(String... requestParam) {
+        return null;
     }
 }

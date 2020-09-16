@@ -1,8 +1,8 @@
-package com.example.bookdetails.controller;
+package com.example.bookdetails.controller.oldapi;
 
 import com.example.bookdetails.entity.dto.request.LoginAuthRequest;
 import com.example.bookdetails.util.API;
-import com.example.bookdetails.util.OkHttpUtils;
+import com.example.bookdetails.repos.OkHttp;
 import com.example.bookdetails.util.constants.ParamKey;
 import com.example.bookdetails.util.loggers.Loggers;
 import com.google.gson.Gson;
@@ -28,7 +28,7 @@ public class AuthController {
         String json = gson.toJson(request);
         okhttp3.Response body = null;
         try {
-            body = OkHttpUtils.getInstance().postController(API.AUTH_SIGN_IN, json, null);
+            body = OkHttp.getInstance().postController(API.AUTH_SIGN_IN, json, null);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -39,7 +39,7 @@ public class AuthController {
     public okhttp3.Response logout(@RequestHeader(name = ParamKey.TOKEN) String token) {
         okhttp3.Response body = null;
         try {
-            body = OkHttpUtils.getInstance().deleteController(API.AUTH_SIGN_IN, token);
+            body = OkHttp.getInstance().deleteController(API.AUTH_SIGN_IN, token);
         } catch (IOException e) {
             loggers.error(e);
             e.printStackTrace();

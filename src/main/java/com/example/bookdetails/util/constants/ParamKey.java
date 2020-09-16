@@ -11,4 +11,7 @@ public class ParamKey {
     public static final String ID = "id";
     public static final String STATUS = "status";
     public static final String DE_ACTIVE = "de_active";
+    public static final String FETCH_AT = "fetch_at";
+    public static final String PAGE = "page";
+    public static final String PER_PAGE = "per_page";
 }

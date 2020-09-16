@@ -1,8 +1,8 @@
-package com.example.bookdetails.controller;
+package com.example.bookdetails.controller.oldapi;
 
 import com.example.bookdetails.entity.dto.request.LoginAuthRequest;
 import com.example.bookdetails.util.API;
-import com.example.bookdetails.util.OkHttpUtils;
+import com.example.bookdetails.repos.OkHttp;
 import com.example.bookdetails.util.constants.ParamKey;
 import com.google.gson.Gson;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +21,7 @@ public class SaleAuthController {
         String json = gson.toJson(request);
         okhttp3.Response response = null;
         try {
-            response = OkHttpUtils.getInstance().postController(API.SALE_AUTH_SIGN_IN, json, null);
+            response = OkHttp.getInstance().postController(API.SALE_AUTH_SIGN_IN, json, null);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -32,7 +32,7 @@ public class SaleAuthController {
     public okhttp3.Response logout(@RequestHeader(name = ParamKey.TOKEN) String token) {
         okhttp3.Response body = null;
         try {
-            body = OkHttpUtils.getInstance().deleteController(API.SALE_AUTH_SIGN_OUT, token);
+            body = OkHttp.getInstance().deleteController(API.SALE_AUTH_SIGN_OUT, token);
         } catch (IOException e) {
             e.printStackTrace();
         }
