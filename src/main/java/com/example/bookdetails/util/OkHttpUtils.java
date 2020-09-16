@@ -1,5 +1,6 @@
 package com.example.bookdetails.util;
 
+import com.example.bookdetails.util.constants.ParamKey;
 import okhttp3.*;
 
 import java.io.IOException;
@@ -21,49 +22,62 @@ public class OkHttpUtils {
 
     OkHttpClient client = new OkHttpClient();
 
-    public String postController(String url, String json) throws IOException {
-        RequestBody body = RequestBody.create(json, JSON);
+    public Response postController(String url, String json, String token) throws IOException {
+        RequestBody body = RequestBody.create(JSON, json);
         url = URL+url;
-        System.out.println(url);
+
+        Request request;
+        if (token != null) {
+            request = new Request.Builder()
+                    .addHeader(ParamKey.TOKEN, token)
+                    .url(url)
+                    .post(body)
+                    .build();
+        } else {
+            request = new Request.Builder()
+                    .url(url)
+                    .post(body)
+                    .build();
+        }
+        try (Response response = client.newCall(request).execute()) {
+            return response;
+        }
+    }
+
+    public Response getController(String url, String token) throws IOException {
+        url = URL + url;
         Request request = new Request.Builder()
+                .addHeader(ParamKey.TOKEN, token)
                 .url(url)
-                .post(body)
-                .build();
-        try (Response response = client.newCall(request).execute()) {
-            System.out.println(response.toString());
-            return response.body().toString();
-        }
-    }
-
-    public String getController() throws IOException {
-        Request request = new Request.Builder()
-                .url(URL)
                 .build();
 
         try (Response response = client.newCall(request).execute()) {
-            return response.body().string();
+            return response;
         }
     }
 
-    public String putController(String json) throws IOException {
-        RequestBody requestBody = RequestBody.create(json, JSON);
+    public Response putController(String url, String json, String token) throws IOException {
+        url = URL + url;
+        RequestBody requestBody = RequestBody.create(JSON, json);
         Request request = new Request.Builder()
-                .url(URL)
+                .addHeader(ParamKey.TOKEN, token)
+                .url(url)
                 .post(requestBody)
                 .build();
         try (Response response = client.newCall(request).execute()) {
-            return response.body().string();
+            return response;
         }
     }
 
-    public String deleteController() throws IOException {
+    public Response deleteController(String url, String token) throws IOException {
+        url = URL+url;
         Request request = new Request.Builder()
-                .url(URL)
+                .addHeader(ParamKey.TOKEN, token)
+                .url(url)
                 .delete()
                 .build();
-
         try (Response response = client.newCall(request).execute()) {
-            return response.body().string();
+            return response;
         }
     }
 }

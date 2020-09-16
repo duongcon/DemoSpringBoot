@@ -1,7 +1,7 @@
 package com.example.bookdetails.util;
 
-import com.example.bookdetails.entity.data.AbstractResponse;
-import com.example.bookdetails.entity.data.ResponseData;
+import com.example.bookdetails.entity.dto.response.AbstractResponse;
+import com.example.bookdetails.entity.dto.response.ResponseData;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -11,6 +11,6 @@ public class ResponseUtils {
     }
 
     public static <T extends AbstractResponse>ResponseEntity<ResponseData> buildResponseData(T t, HttpStatus status) {
-        return new ResponseEntity<ResponseData>(new ResponseData(t), status);
+        return new ResponseEntity<>(new ResponseData(t), status);
     }
 }

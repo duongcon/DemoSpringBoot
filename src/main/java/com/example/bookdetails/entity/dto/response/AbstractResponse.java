@@ -1,6 +1,5 @@
-package com.example.bookdetails.entity.data;
+package com.example.bookdetails.entity.dto.response;
 
-import com.example.bookdetails.util.datetime.DateTimeConstant;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

@@ -1,4 +1,4 @@
-package com.example.bookdetails.entity.data;
+package com.example.bookdetails.entity.dto.response;
 
 import com.example.bookdetails.util.constants.CodeResponse;
 import lombok.AllArgsConstructor;

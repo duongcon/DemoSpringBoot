@@ -1,4 +1,4 @@
-package com.example.bookdetails.entity.request;
+package com.example.bookdetails.entity.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
