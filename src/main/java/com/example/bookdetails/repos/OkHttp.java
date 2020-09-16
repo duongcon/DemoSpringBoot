@@ -1,6 +1,7 @@
 package com.example.bookdetails.repos;
 
 import com.example.bookdetails.util.constants.ParamKey;
+import com.sun.deploy.net.HttpResponse;
 import okhttp3.*;
 
 import java.io.IOException;
@@ -24,6 +25,8 @@ public class OkHttp {
 
     public Response postController(String url, String json, String token) throws IOException {
         RequestBody body = RequestBody.create(JSON, json);
+        url = URL+url;
+
         Request request;
         if (token != null) {
             request = new Request.Builder()
@@ -38,11 +41,14 @@ public class OkHttp {
                     .build();
         }
         try (Response response = client.newCall(request).execute()) {
+            System.out.println(response.toString());
+            System.out.println();
             return response;
         }
     }
 
     public Response getController(String url, String token) throws IOException {
+        url = URL + url;
         Request request = new Request.Builder()
                 .addHeader(ParamKey.TOKEN, token)
                 .url(url)
@@ -54,6 +60,7 @@ public class OkHttp {
     }
 
     public Response putController(String url, String json, String token) throws IOException {
+        url = URL + url;
         RequestBody requestBody = RequestBody.create(JSON, json);
         Request request = new Request.Builder()
                 .addHeader(ParamKey.TOKEN, token)
@@ -66,6 +73,7 @@ public class OkHttp {
     }
 
     public Response deleteController(String url, String token) throws IOException {
+        url = URL+url;
         Request request = new Request.Builder()
                 .addHeader(ParamKey.TOKEN, token)
                 .url(url)
